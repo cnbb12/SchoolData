@@ -67,6 +67,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="home.html" />
+    <Content Include="js\pages\home.html.js" />
+    <Content Include="search.html" />
     <Content Include="js\common.js" />
     <Content Include="js\ext\build\classic\theme-aria\config.rb" />
     <Content Include="js\ext\build\classic\theme-aria\resources\ext\ext-watermark\fonts\ext-watermark.eot" />
@@ -9467,7 +9469,7 @@
     <Content Include="js\ext\ext-bootstrap.js" />
     <Content Include="js\ext\ux\plugin\RowExpander.js" />
     <Content Include="index.html" />
-    <Content Include="js\pages\home.html.js" />
+    <Content Include="js\pages\search.html.js" />
     <Content Include="js\pages\index.html.js" />
     <Content Include="Web.config" />
   </ItemGroup>
