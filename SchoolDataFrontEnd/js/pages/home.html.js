@@ -1,7 +1,8 @@
 ﻿Ext.onReady(function () {
+    checkLogin();
     init();
 });
-function init() {
+function init() {  
     Ext.setGlyphFontFamily('FontAwesome');//简化使用FontAwesome字体图标
     Ext.create('Ext.container.Viewport', {
         layout: "border",
@@ -35,11 +36,11 @@ function init() {
             }, {//获取index页面传递的用户名信息进行显示
                 id: "user_name",
                 xtype: "container",
-                html: "<a href='#' class='userName'>" + decodeURI(window.location.search.substr(1).split('=')[1])+"</a>",
+                    html: "<a href='#' class='userName'>" + window.localStorage.getItem('userName')+ "</a>",
                 cursor: 'pointer',
                 style: 'margin:25px 30px 0px 10px',
                 }]
-        }, {//west
+        }, {//west左侧资源格式区
                 xtype: 'panel',
                 layout: 'vbox',
                 region: 'west',
@@ -135,8 +136,7 @@ function init() {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
                                     function (e, t) {
-                                        var _userName = decodeURI(window.location.search.substr(1).split('=')[1]);
-                                        window.location = "search.html?userName=" + _userName;
+                                        window.location = "search.html";
                                     });
                             },
                         }
@@ -242,6 +242,7 @@ function init() {
                                 console.log("123");
                                 var keyword = Ext.getCmp("txt_search").getValue();
                                 searchResourceAccordingKeyWord(keyword);
+                              
 
                             }
                         }
@@ -297,6 +298,15 @@ function init() {
  
 }
 
+//检测用户进入该页前是否已经登录，否则跳转到登录界面
+function checkLogin() {
+    var userName = window.localStorage.getItem('userName');
+    if (!userName) {
+        window.location = "index.html";
+    }
+}
+
+///根据资源格式检索资源
 function searchResourceAccordingForm(formName) {
     common.api({
         url: "Resource/SearchResourceAccordingForm",
@@ -305,6 +315,7 @@ function searchResourceAccordingForm(formName) {
             formName: formName,
         },
         fn: function (res) {
+            console.log("5555");
             if (res.state) {
                 console.log(res);
                 var _resource = [];
@@ -322,7 +333,7 @@ function searchResourceAccordingForm(formName) {
     })
 }
 
-
+///根据关键字检索资源
 function searchResourceAccordingKeyWord(keyword) {
     common.api({
         url: "Resource/SearchResourcrAccordingKeyWord",
@@ -348,6 +359,7 @@ function searchResourceAccordingKeyWord(keyword) {
     })
 }
 
+//资源显示区的数据
 var resource = Ext.create('Ext.data.Store', {
     fields: ['name', 'size', 'time'],
     pageSize: 20, 

@@ -1,5 +1,7 @@
 ﻿Ext.onReady(function () {
+    checkLogin();
     init();
+    
 });
 function init() {
     Ext.setGlyphFontFamily('FontAwesome');//简化使用FontAwesome字体图标
@@ -35,7 +37,7 @@ function init() {
                 }, {//从home页面获取用户名信息进行显示
                     id: "user_name",
                     xtype: "container",
-                    html: "<a href='#' class='userName'>" + decodeURI(window.location.search.substr(1).split('=')[1]) + "</a>",
+                    html: "<a href='#' class='userName'>" + window.localStorage.getItem('userName') + "</a>",
                     cursor: 'pointer',
                     style: 'margin:25px 30px 0px 10px',
                 }]
@@ -249,6 +251,8 @@ function init() {
                                         console.log("222");
                                         var grade = Ext.getCmp("combo_grade").getRawValue();
                                         var clas = Ext.getCmp("combo_clas").getRawValue();
+                                        console.log(grade);
+                                        console.log(clas);
                                         searchResourceAccordingGrade(grade,clas);
                                     })
                             }
@@ -270,6 +274,8 @@ function init() {
                                             console.log("2222222");
                                             var grade = Ext.getCmp("combo_grade").getRawValue();
                                             var clas = Ext.getCmp("combo_clas").getRawValue();
+                                            console.log(grade);
+                                            console.log(clas);
                                             searchResourceAccordingGrade(grade, clas);
                                         })
                                 }
@@ -437,6 +443,16 @@ var subjects = Ext.create('Ext.data.Store', {
     ]
 });
 
+
+//检测用户进入该页前是否已经登录，否则跳转到登录界面
+function checkLogin() {
+    var userName = window.localStorage.getItem('userName');
+    if (!userName) {
+        window.location = "index.html";
+    }
+}
+
+//根据资源类型（如：课件）进行检索
 function searchResourceAccordingType(typeName) {
     common.api({
         url: "Resource/SearchResourceAccordingType",
@@ -462,6 +478,7 @@ function searchResourceAccordingType(typeName) {
     })
 }
 
+//根据资源所属学科进行检索
 function searchResourceAccordingDiscipline(disciplineName) {
     common.api({
         url: "Resource/SearchResourceAccordingDiscpline",
@@ -487,6 +504,7 @@ function searchResourceAccordingDiscipline(disciplineName) {
     })
 }
 
+//根据资源所属格式进行检索（如：图片）
 function searchResourceAccordingForm(formName) {
     common.api({
         url: "Resource/SearchResourceAccordingForm",
@@ -512,6 +530,7 @@ function searchResourceAccordingForm(formName) {
     })
 }
 
+//根据资源所属年级进行检索
 function searchResourceAccordingGrade(grade,clas) {
     common.api({
         url: "Resource/SearchResourceAccordingGrade",
@@ -537,6 +556,7 @@ function searchResourceAccordingGrade(grade,clas) {
     })
 }
 
+//根据年级查找对应班级
 function findClas(grade) {
     common.api({
         url: "Grades/FindClas",
@@ -561,6 +581,7 @@ function findClas(grade) {
     })
 }
 
+//根据关键字进行资源检索
 function searchResourceAccordingKeyWord(keyword) {
     common.api({
         url: "Resource/SearchResourcrAccordingKeyWord",

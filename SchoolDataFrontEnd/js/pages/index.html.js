@@ -5,23 +5,25 @@ function init() {
     Ext.setGlyphFontFamily('FontAwesome');//简化使用FontAwesome字体图标
     Ext.create('Ext.container.Viewport', {
         layout: 'border',
-        items: [{
-            xtype: "container",
-            height: 45,
-            style: "background-color:#35BAF6;",
-            html: "<div style='text-align:center;color:white;font-family:微软雅黑;font-size:14pt;line-height:45px;'>请登录···</div>",
-            region: 'north',
-        }, {
+        items: [
+            //{
+        //    xtype: "container",
+        //    height: 45,
+        //    style: "background-color:#35BAF6;",
+        //    html: "<div style='text-align:center;color:white;font-family:微软雅黑;font-size:14pt;line-height:45px;'>请登录···</div>",
+        //    region: 'north',
+            //}, 
+            {
             xtype: "container",
             region: 'center',
             style: {
-                backgroundImage: 'url(images/lock-screen-background.jpg)',
+                backgroundImage: 'url(images/login_background.jpg)',
                 backgroundSize: "cover"
             },
             items: [{//中间填写用户信息的panel
                 xtype: "panel",
                 width: 400,
-                style: "margin:80px auto 0px auto;",
+                style: "margin:150px auto 0px auto;",
                 layout: "vbox",
                 bodyStyle: "padding:15px;",
                 defaults: {
@@ -55,15 +57,21 @@ function init() {
                                 }
                             }
                         }
-                }, {
+                    }, {
+                        id:'label_error_message',
+                        xtype: 'label',
+                        hidden: true,
+                        height:25,
+                        cls: 'errorMessage',
+                        style: "margin:5px 0 0 2px",
+                    },{
                     xtype: "fieldcontainer",
                     layout: "hbox",
                     items: [{
-                        xtype: 'checkboxfield',
-                        name: 'checkbox_rememberMe',
-                        boxLabel: 'Remenber Me',
-                        value: 'Remenber Me',
-                        checked: true
+                        xtype: 'label',
+                        id:'label_register',
+                        html: "<a href='#'>注册新用户</a>",
+                        style: "margin:5px 0 0 2px",
                     }, {
                             xtype: "container",
                             flex: 1
@@ -87,7 +95,6 @@ function init() {
     });
 }
 
-
 function checkLogin(box,userName, password) {
     if (userName == "" || password == "") {
         Ext.Msg.show({
@@ -108,17 +115,15 @@ function checkLogin(box,userName, password) {
         },
         fn: function (res) {
             box.el.unmask();
+            console.log(res);
             if (res.state) {
-                alert("登录成功，跳转页面。");
-                var _userName = res.result.UserName;
-                window.location = "home.html?userName=" + _userName;
+                Ext.getCmp("label_error_message").hide();
+                window.localStorage.setItem('userName', res.result.UserName);
+                window.location = "home.html";
             } else {
-                Ext.Msg.show({
-                    title: "登录失败。",
-                    msg: res.msg,
-                    buttons: Ext.Msg.OK,
-                    icon: Ext.Msg.ERROR
-                });
+                errorMessage = res.msg;
+                Ext.getCmp("label_error_message").setText(errorMessage);
+                Ext.getCmp("label_error_message").show();
             }
         }
     })

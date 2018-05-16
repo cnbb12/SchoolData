@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="home.html" />
+    <Content Include="images\login_background.jpg" />
     <Content Include="js\pages\home.html.js" />
     <Content Include="search.html" />
     <Content Include="js\common.js" />
@@ -9482,7 +9483,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css\" />
-    <Folder Include="images\" />
     <Folder Include="uploadFiles\" />
   </ItemGroup>
   <PropertyGroup>
