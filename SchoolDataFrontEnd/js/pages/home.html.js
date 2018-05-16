@@ -32,10 +32,10 @@ function init() {
                     width: 50,
                 style:'margin-top:10px'
                     
-            }, {
+            }, {//获取index页面传递的用户名信息进行显示
                 id: "user_name",
                 xtype: "container",
-                html: "<a href='#' class='userName'>用户名</a>",
+                html: "<a href='#' class='userName'>" + decodeURI(window.location.search.substr(1).split('=')[1])+"</a>",
                 cursor: 'pointer',
                 style: 'margin:25px 30px 0px 10px',
                 }]
@@ -135,7 +135,8 @@ function init() {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
                                     function (e, t) {
-                                        window.location = "search.html"
+                                        var _userName = decodeURI(window.location.search.substr(1).split('=')[1]);
+                                        window.location = "search.html?userName=" + _userName;
                                     });
                             },
                         }

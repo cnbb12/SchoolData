@@ -18,7 +18,7 @@ function init() {
                 backgroundImage: 'url(images/lock-screen-background.jpg)',
                 backgroundSize: "cover"
             },
-            items: [{
+            items: [{//中间填写用户信息的panel
                 xtype: "panel",
                 width: 400,
                 style: "margin:80px auto 0px auto;",
@@ -45,7 +45,16 @@ function init() {
                     fieldStyle: {
                         background: '#fff url(images/key.png) no-repeat right center',
                         paddingLeft: '10px',
-                    }
+                        },
+                        listeners: {
+                            specialkey: function (field, e) {
+                                if (e.getKey() == Ext.EventObject.ENTER) {
+                                    var userName = Ext.getCmp("txtId").getValue(),
+                                        password = Ext.getCmp("txtKey").getValue();
+                                    checkLogin(this.up(), userName, password);
+                                }
+                            }
+                        }
                 }, {
                     xtype: "fieldcontainer",
                     layout: "hbox",
@@ -64,7 +73,8 @@ function init() {
                             style: "margin-top:8px;"
                         }]
                 }, {
-                    xtype: 'button',
+                        xtype: 'button',
+                        id:'btn_login',
                         text: '登录',
                         handler: function () {                            
                             var userName = Ext.getCmp("txtId").getValue(),
@@ -100,8 +110,8 @@ function checkLogin(box,userName, password) {
             box.el.unmask();
             if (res.state) {
                 alert("登录成功，跳转页面。");
-                common.user = res.result;
-                window.location = "home.html";
+                var _userName = res.result.UserName;
+                window.location = "home.html?userName=" + _userName;
             } else {
                 Ext.Msg.show({
                     title: "登录失败。",

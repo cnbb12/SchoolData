@@ -32,10 +32,10 @@ function init() {
                     width: 50,
                     style: 'margin-top:10px'
 
-                }, {
+                }, {//从home页面获取用户名信息进行显示
                     id: "user_name",
                     xtype: "container",
-                    html: "<a href='#' class='userName'>用户名</a>",
+                    html: "<a href='#' class='userName'>" + decodeURI(window.location.search.substr(1).split('=')[1]) + "</a>",
                     cursor: 'pointer',
                     style: 'margin:25px 30px 0px 10px',
                 }]

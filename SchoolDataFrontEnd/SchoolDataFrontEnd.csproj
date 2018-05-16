@@ -9478,10 +9478,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicInformation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="css\" />
     <Folder Include="images\" />
+    <Folder Include="uploadFiles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
