@@ -1,4 +1,5 @@
-﻿var api ="http://localhost:63676/";
+﻿var api = "http://localhost:63676/";
+var user;
 var system = {
     loginCheck: function (module,callback,onlyCheck) {
         var userId=window.localStorage.getItem("userId");

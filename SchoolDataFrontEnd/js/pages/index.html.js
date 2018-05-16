@@ -100,6 +100,7 @@ function checkLogin(box,userName, password) {
             box.el.unmask();
             if (res.state) {
                 alert("登录成功，跳转页面。");
+                common.user = res.result;
                 window.location = "home.html";
             } else {
                 Ext.Msg.show({
