@@ -70,8 +70,8 @@ function init() {
                     items: [{
                         xtype: 'label',
                         id:'label_register',
-                        html: "<a href='#'>注册新用户</a>",
-                        style: "margin:5px 0 0 2px",
+                        html: "<a href='register.html'>注册新用户</a>",
+                        style: "margin:5px 0 0 2px", 
                     }, {
                             xtype: "container",
                             flex: 1

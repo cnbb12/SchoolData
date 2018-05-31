@@ -69,6 +69,8 @@
     <Content Include="home.html" />
     <Content Include="images\login_background.jpg" />
     <Content Include="js\pages\home.html.js" />
+    <Content Include="js\pages\register.html.js" />
+    <Content Include="register.html" />
     <Content Include="search.html" />
     <Content Include="js\common.js" />
     <Content Include="js\ext\build\classic\theme-aria\config.rb" />

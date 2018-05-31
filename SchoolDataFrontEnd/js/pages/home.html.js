@@ -36,7 +36,7 @@ function init() {
             }, {//获取index页面传递的用户名信息进行显示
                 id: "user_name",
                 xtype: "container",
-                    html: "<a href='#' class='userName'>" + window.localStorage.getItem('userName')+ "</a>",
+                html: "<a href='#' class='userName'>" + window.localStorage.getItem('userName')+ "</a>",
                 cursor: 'pointer',
                 style: 'margin:25px 30px 0px 10px',
                 }]
@@ -49,89 +49,105 @@ function init() {
                 bodyStyle: 'background:#F0FFFF;',
                 defaults: {
                     xtype: 'label',
+                    border: false,
                     height: 50,
-                    width: 180,                    
+                    width: 180, 
+                    cls: 'classify',
+
                 },
                 items: [{
                     id:'label_all',
-                    html: "<a href='#' class='classify'>所有文件</a> ",
+                    html: "<a class='classify'>所有文件</a>",
                     listeners: {
                         render: function () {//渲染后添加click事件
                             Ext.fly(this.el).on('click',
                                 function (e, t) {
                                     console.log("11111");
-                                    searchResourceAccordingForm("");
+                                    searchResourceAccordingForm();
                                 });
                         },
                     }
                 }, {
-                        html: "<a href='#' class='classify'>视频</a>",
+                        id: 'label_video',
+                        html: "<a class='classify'>视频</a>",
                         listeners: {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
                                     function (e, t) {
                                         console.log("11111");
+                                        //var formName = Ext.getCmp("label_video").getValue();
                                         searchResourceAccordingForm("视频");
                                     });
                             },
                         }
                     }, {
-                        html: "<a href='#' class='classify'>音频</a>",
+                        id: 'label_music',
+                        html: "<a class='classify'>音频</a>",
                         listeners: {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
                                     function (e, t) {
                                         console.log("11111");
+                                        //var formName = Ext.getCmp("label_music").text;
                                         searchResourceAccordingForm("音频");
                                     });
                             },
                         }
                     }, {
-                        html: "<a href='#' class='classify'>图片</a>",
+                        id: 'label_picture',
+                        html: "<a class='classify'>图片</a>",
                         listeners: {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
                                     function (e, t) {
                                         console.log("11111");
+                                        //var formName = Ext.getCmp("label_picture").html;
                                         searchResourceAccordingForm("图片");
                                     });
                             },
                         }
                     }, {
-                        html: "<a href='#' class='classify'>文档</a>",
+                        id: 'label_word',
+                        html: "<a class='classify'>文档</a>",
                         listeners: {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
                                     function (e, t) {
                                         console.log("11111");
+                                        //var formName = Ext.getCmp("label_word").html;
                                         searchResourceAccordingForm("文档");
                                     });
                             },
                         }
                     }, {
-                        html: "<a href='#' class='classify'>表格</a>",
+                        id: 'label_excel',
+                        html: "<a class='classify'>表格</a>",
                         listeners: {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
                                     function (e, t) {
-                                        console.log("11111");
+                                        //var formName = Ext.getCmp("label_excel").getValue();
+                                        //console.log(formName);
                                         searchResourceAccordingForm("表格");
                                     });
                             },
                         }
                     }, {
-                        html: "<a href='#' class='classify'>其它</a>",
+                        id: 'label_other',
+                        html: "<a class='classify'>其它</a>",
                         listeners: {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
                                     function (e, t) {
                                         console.log("11111");
+                                        //var formName = Ext.getCmp("label_other").html;
                                         searchResourceAccordingForm("其它");
                                     });
                             },
                         }
                     }, {
-                        html: "<a href='#' class='classify'>分类检索</a>",
+                        text: "分类检索",
+                        cls: 'classify',
                         listeners: {
                             render: function () {//渲染后添加click事件
                                 Ext.fly(this.el).on('click',
@@ -171,9 +187,10 @@ function init() {
                                         height: 200,
                                         width: 500,
                                         items: [{
-                                            xtype: 'panel',
+                                            xtype: 'container',
                                             layout: 'vbox',
                                             items: [{
+                                                id:"txtFile",
                                                 xtype: 'filefield',
                                                 name: '文件',
                                                 fieldLabel: '文件',
@@ -184,19 +201,47 @@ function init() {
                                                 buttonText: '浏览',
                                                 margin: '30px',
                                             }, {
-                                                xtype: 'panel',
+                                                id:'commit_pnl',
+                                                xtype: 'container',
                                                 height: 40,
                                                 width: 500,
                                                 layout: 'hbox',
                                                 bodyStyle: 'background:#f0f0f0',
                                                 margin: '18px 0 0 0',
                                                 border: false,
-                                                items: [{
+                                                    items: [{
+                                                        id:'label_upload_msg',
+                                                        xtype: 'label',
+                                                        //text: '文件上传成功',
+                                                        width:100,
+                                                        height: 30,
+                                                        margin: '10px 8px 6px 30px',
+
+                                                    }, {
                                                     xtype: 'button',
                                                     text: '提交',
                                                     height: 30,
                                                     width: 72,
-                                                    margin: '6px 8px 6px 400px',
+                                                    margin: '6px 8px 6px 250px',
+                                                    listeners: {
+                                                        click: function () {
+                                                            var fileEl = Ext.getCmp("txtFile").fileInputEl.dom;
+                                                            var fd = new FormData();
+                                                            fd.append("upfile", fileEl.files[0]);
+                                                            var ajax = new XMLHttpRequest();
+                                                            ajax.open("post", common.getApiRootUrl() + "/upload/Upload", true);
+                                                            ajax.onreadystatechange = function () {
+                                                                console.log(ajax.response);
+                                                                var res = JSON.parse(ajax.response);
+                                                                if (res.state) {
+                                                                    Ext.getCmp("label_upload_msg").setText("文件上传成功")
+                                                                } else {
+                                                                    Ext.getCmp("label_upload_msg").setText(res.result);
+                                                                }
+                                                            };
+                                                            ajax.send(fd);
+                                                        }
+                                                    }
                                                 }]
                                             }]
                                         }]
